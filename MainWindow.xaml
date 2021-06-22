@@ -1,0 +1,151 @@
+﻿<Window x:Class="HyperHack.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:HyperHack" Title="Hyper Hack" Height="617.584" Width="800" WindowStyle="None" HorizontalContentAlignment="Left" ResizeMode="CanResize" AllowsTransparency="True" MinWidth="400" MinHeight="300">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CornerRadius="15" ResizeBorderThickness="10,10,2,10" GlassFrameThickness="5" UseAeroCaptionButtons="False" CaptionHeight="0" />
+    </WindowChrome.WindowChrome>
+    <FrameworkElement.Resources>
+        <ResourceDictionary Source="DarkMode.xaml" />
+    </FrameworkElement.Resources>
+    <Control.Background>
+        <SolidColorBrush Color="White" Opacity="0" />
+    </Control.Background>
+    <Border Background="{StaticResource DefaultBackground}" Style="{StaticResource Window}">
+        <Grid VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,-0.4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="280*"/>
+                <RowDefinition Height="29*"/>
+            </Grid.RowDefinitions>
+            <Border Name="TopTabBorder" VerticalAlignment="Top" Style="{StaticResource TopTab}" Height="37">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,0,5,0" MouseLeftButtonDown="MouseTabDrag">
+                    <Panel.Background>
+                        <SolidColorBrush Color="#00000000" Opacity="0" />
+                    </Panel.Background>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="5,4,10,0">
+                        <Label Content="Version:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Name="versionLabel" Content="2.1.0" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <Label Content="Hyper Hack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="⚒️" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TopTabButton}" FontSize="15" FontFamily="Montserrat SemiBold" Cursor="Hand" Height="Auto" Margin="0,0,20,0.2" Click="ConsoleClicked" Foreground="#FFBF0000" RenderTransformOrigin="0.81,0.528" />
+                        <Button Content="📜" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TopTabButton}" FontSize="15" FontFamily="Montserrat SemiBold" Cursor="Hand" Height="Auto" Margin="0,0,20,0" Click="PinClicked" Foreground="#FF2781E2" />
+                        <Button Content="_" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource TopTabButton}" FontSize="15" FontFamily="Montserrat ExtraBold" Cursor="Hand" Height="Auto" Click="MinimalizeClicked" />
+                        <Button Content="◻" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource TopTabButton}" FontSize="15" FontFamily="Montserrat ExtraBold" Cursor="Hand" Height="Auto" Click="MaximizeClicked" Foreground="White" />
+                        <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource TopTabButton}" FontSize="15" FontFamily="Montserrat ExtraBold" Cursor="Hand" Height="Auto" Click="ExitClicked" Foreground="White" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <StackPanel Margin="0,130,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="800" Height="116">
+                <Label Name="label1" Content="Quiz ID or Quizizz Url:" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontFamily="Montserrat SemiBold" Visibility="Collapsed" />
+                <Grid>
+                    <TextBox Name="QuizIdBox" TextWrapping="Wrap" VerticalAlignment="Top" Opacity="0.9" FontSize="20" Template="{StaticResource TextBoxBaseControlTemplate}" VerticalContentAlignment="Center" Margin="20,0,20,0" TextChanged="textBox_TextChanged" KeyDown="EnterPressed" />
+                    <Label IsHitTestVisible="False" Content="Quiz ID or URL" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="26,0,0,0" Foreground="#FFA9A9A9" Opacity="0.5">
+                        <FrameworkElement.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="FontFamily" Value="Montserrat Medium" />
+                                <Setter Property="Foreground" Value="#e4ebea" />
+                                <Setter Property="Padding" Value="2" />
+                                <Style.Triggers>
+                                    <DataTrigger Value="" Binding="{Binding Text, ElementName=QuizIdBox}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </FrameworkElement.Style>
+                    </Label>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25,10,0,0">
+                    <Button Name="GetAsnwersBtn" Content="Get Answers" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource Colorful}" Margin="0,2,0,0" Click="SerialClicked" Cursor="Hand" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" SpreadMethod="Pad" StartPoint="0,1">
+                                <GradientStop Color="#FF004BF9" Offset="0.766"/>
+                                <GradientStop Color="#FF22DBFF" Offset="0.088"/>
+                                <GradientStop Color="#FF227BDA" Offset="0.481"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label Name="userResponse" Content="" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Montserrat SemiBold" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
+                    <Label Name="textBlock" HorizontalAlignment="Left" Content="Search:" VerticalAlignment="Center" />
+                    <Grid Margin="5,0,0,0">
+                        <TextBox Name="SearchBox" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="208" ToolTip="Search for question or answer here." AutomationProperties.HelpText="Search Here" VerticalContentAlignment="Center" Template="{StaticResource TextBoxBaseControlTemplate}" HorizontalContentAlignment="Left" TextChanged="SearchChanged" Foreground="White" />
+                        <Label IsHitTestVisible="False" Content="🔍" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2,0,2,0" Foreground="#FFA9A9A9" Opacity="0.5">
+                            <FrameworkElement.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="FontFamily" Value="Montserrat Medium" />
+                                    <Setter Property="Foreground" Value="#e4ebea" />
+                                    <Setter Property="Padding" Value="2" />
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Value="" Binding="{Binding Text, ElementName=SearchBox}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </FrameworkElement.Style>
+                        </Label>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Name="ScrollView" Margin="26,251,0,10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" FlowDirection="LeftToRight" VerticalContentAlignment="Top" HorizontalContentAlignment="Left">
+                <StackPanel Name="StackPanel" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanHorizontallyScroll="True" ScrollViewer.CanContentScroll="True" CanVerticallyScroll="True" Height="292" />
+            </ScrollViewer>
+            <Grid VerticalAlignment="Bottom" Height="59" Margin="0,0,0,-0.4" Grid.RowSpan="2">
+                <Button Name="button1" Content="Copy All" HorizontalAlignment="Left" Margin="10,0,0,7.2" VerticalAlignment="Bottom" Style="{StaticResource Normal}" Click="CopyClicked" Cursor="Hand" >
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <TransformGroup>
+                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                    <RotateTransform Angle="47.49" CenterY="0.5" CenterX="0.5"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF4060CB" Offset="0.133"/>
+                            <GradientStop Color="#FF4CCCDF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                <Image Name="PayPalLink" Source="PayPalLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,14.8,26.4" UseLayoutRounding="False" MaxWidth="100" Cursor="Hand" MouseDown="PayPalClicked" />
+                <Image Name="DiscordLink" Source="DiscordLogo.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,324.472,10" UseLayoutRounding="False" MaxWidth="100" Cursor="Hand" MouseDown="DiscordClicked" />
+                <Label Content="Users Online:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="672,34,24,3.4" Foreground="#FF2F5CD9" />
+                <Label Name="onlineCount" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="762,34,1,3.4" Foreground="#FF2F5CD9" RenderTransformOrigin="0.503,0.505" />
+            </Grid>
+            <Label Name="Debug" Margin="0,0,20,14.6" Visibility="Collapsed" HorizontalContentAlignment="Right" Content="Test" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Height="0" Width="0" />
+            <StackPanel Margin="0,42,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="800" Height="88">
+                <Label x:Name="label2" Content="Quiz ID or Quizizz Url:" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontFamily="Montserrat SemiBold" Visibility="Collapsed" />
+                <Grid/>
+                <StackPanel Orientation="Horizontal" Margin="20,10,0,0" Height="69">
+                    <Grid Margin="5,0,0,0"/>
+                    <Image x:Name="avatarICON" Width="70" Height="70">
+                        <Image.Clip>
+                            <EllipseGeometry Center="35,35" RadiusX="35" RadiusY="35" />
+                        </Image.Clip>
+                        <Image.Source>
+                            <BitmapImage UriSource="https://cdn.discordapp.com/avatars/678559901789978624/2b8b0faab4f29e66252d82366a1afde6.png?size=256" />
+                        </Image.Source>
+                    </Image>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="usernameBTN" Content="username" HorizontalAlignment="Left" Margin="117,0,0,458" VerticalAlignment="Bottom" Style="{StaticResource Normal}" Click="EditProfile" Cursor="Hand" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="47.49" CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF4060CB" Offset="0.133"/>
+                        <GradientStop Color="#FF4CCCDF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Border>
+</Window>
